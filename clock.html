@@ -37,12 +37,12 @@
 	
 	// context.rotate(20*Math.PI/180);
 
-	function drawBaseScaleLine(angle, length, linewidth){
+	function drawBaseScaleLine(angle, length, lineWidth){
 		// context.translate(center_point[0], center_point[1]);
 		context.save();
 		context.beginPath();
 		context.rotate(angle*Math.PI/180);
-		context.lineWidth = linewidth;
+		context.lineWidth = lineWidth;
 		context.moveTo(98-length, 0);
 		context.lineTo(98, 0);
 		context.stroke();
@@ -57,7 +57,20 @@
 		drawBaseScaleLine(i*30, 8, 2);
 	}
 
+	function drawPointer(angle, length, lineWidth){
+		context.save();
+		context.beginPath();
+		context.rotate(angle*Math.PI/180);
+		context.lineWidth = lineWidth;
+		context.moveTo(-10, 0);
+		context.lineTo(-10+length, 0);
+		context.stroke();
+		context.restore();
+	}
 
+	drawPointer(20, 95, 1);
+	drawPointer(30, 90, 2);
+	drawPointer(40, 80, 3);
 
 
 </script>
