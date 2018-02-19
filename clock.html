@@ -10,17 +10,16 @@
 </head>
 <body>
 	<canvas id='canvas' width='300' height='300'></canvas>
+	<canvas id='canvas2' width='300' height='300'></canvas>
 </body>
 </html>
 
 <script type="text/javascript">
 	var canvas = document.getElementById('canvas');
 	var context = canvas.getContext('2d');
-	var center_point = [canvas.width/2, canvas.height/2];
 
-	context.translate(center_point[0], center_point[1]);
+	context.translate(canvas.width/2, canvas.height/2);
 
-	clock_second_pointer_length = 80;
 	clock_arc_radius_length = 100;
 	context.arc(0, 0, clock_arc_radius_length, 0, 2*Math.PI);
 	context.stroke();
@@ -28,17 +27,8 @@
 	context.beginPath();
 	context.arc(0, 0, 5, 0, 2*Math.PI);
 	context.fill();
-	// context.beginPath();
-	// context.lineWidth = 3;
-	// context.moveTo(0, 1);
-	// scale_point = [100, 100];
-	// context.lineTo(scale_point[0], scale_point[1]);
-	// context.stroke();
-	
-	// context.rotate(20*Math.PI/180);
 
 	function drawBaseScaleLine(angle, length, lineWidth){
-		// context.translate(center_point[0], center_point[1]);
 		context.save();
 		context.beginPath();
 		context.rotate(angle*Math.PI/180);
@@ -57,7 +47,9 @@
 		drawBaseScaleLine(i*30, 8, 2);
 	}
 
-	function drawPointer(angle, length, lineWidth){
+	// context.setTransform(1, 0, 0, 1, 0, 0);
+
+	function drawPointer(context, angle, length, lineWidth){
 		context.save();
 		context.beginPath();
 		context.rotate(angle*Math.PI/180);
@@ -68,9 +60,20 @@
 		context.restore();
 	}
 
-	drawPointer(20, 95, 1);
-	drawPointer(30, 90, 2);
-	drawPointer(40, 80, 3);
+	var canvas2 = document.getElementById('canvas2');
+	var context2 = canvas2.getContext('2d');
+	context2.drawImage(canvas, 0, 0, canvas.width, canvas.height);
+	context2.translate(canvas2.width/2, canvas2.height/2);
+
+	function animate(){
+		
+		drawPointer(context2, 20, 95, 1);
+		drawPointer(context2, 30, 90, 2);
+		drawPointer(context2, 40, 80, 3);
+    	requestAnimationFrame(animate);
+	}
+	requestAnimationFrame(animate);
+
 
 
 </script>
